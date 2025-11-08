@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Calm Neutral Tech (BG: gray-50, Content: white, Text: gray-800, Accent: blue-600) -->
     <!-- Application Structure Plan: Designed a tab-based SPA structure with a sticky top navigation (Home, Core Expertise, Career Timeline, Key Impacts). This is superior to a linear resume as it allows non-linear exploration. Users (recruiters) can jump directly to the section they care about (e.g., 'Core Expertise') without scrolling. The 'Core Expertise' section is further broken down into themes (Cloud, Backend, etc.) which synthesizes skills and related job-specific achievements, providing immediate context. The 'Key Impacts' section visualizes quantitative achievements for maximum impact. -->
-    <!-- Visualization & Content Choices: Report Info: Summary/Achievements -> Goal: Inform (at aglance) -> Viz: HTML/Tailwind 'Stat Cards' -> Interaction: Static -> Justification: High-impact, scannable. | Report Info: Skills & Experience -> Goal: Organize/Relate -> Viz: JS-powered HTML Tabs (by theme) -> Interaction: Click (to switch theme) -> Justification: Connects skills to real-world application, a key task for recruiters. | Report Info: Job History -> Goal: Show progression -> Viz: HTML/CSS Vertical Timeline -> Interaction: Click (to expand/collapse job details) -> Justification: Keeps UI clean, shows growth. | Report Info: Quantifiable Metrics (30%, 40%, etc.) -> Goal: Compare (Before/After) -> Viz: Bar Charts (Chart.js on Canvas) -> Interaction: Hover (tooltips) -> Justification: Visualizing numbers makes them far more memorable and impactful. | CONFIRMING NO SVG/Mermaid. -->
+    <!-- Visualization & Content Choices: Report Info: Summary/Achievements -> Goal: Inform (at aglance) -> Viz: HTML/Tailwind 'Stat Cards' -> Interaction: Static -> Justification: High-impact, scannable. | Report Info: Skills & Experience -> Goal: Organize/Relate -> Viz: JS-powered HTML Tabs (by theme) -> Interaction: Click (to switch theme) -> Justification: Connects skills to real-world application, a key task for recruiters. | Report Info: Key Impacts (30%, 40%, etc.) -> Goal: Compare (Before/After) -> Viz: Bar Charts (Chart.js on Canvas) -> Interaction: Hover (tooltips) -> Justification: Visualizing numbers makes them far more memorable and impactful. | CONFIRMING NO SVG/Mermaid. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -106,7 +106,7 @@
             <section id="home" class="content-section bg-white p-6 md:p-8 rounded-lg shadow-sm">
                 <h2 class="text-3xl font-semibold text-gray-900 mb-4">Professional Summary</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                    This is an interactive overview of my 7+ years as a results-driven <b class="font-bold">Senior Software Engineer</b>. My expertise lies in high-scale backend development, microservices, and cloud-native infrastructure, with a proficiency in <b class="font-bold">Python</b>, <b class="font-bold">System Design</b>, and <b class="font-bold">Kubernetes</b>. Below is a snapshot of my key achievements. Click the tabs above to explore my skills, career, and visualized impacts in detail.
+                    This is an interactive overview of my 7+ years as a results-driven <b>Senior Software Engineer</b>. My expertise lies in high-scale backend development, microservices, and cloud-native infrastructure, with a proficiency in <b>Python</b>, <b>System Design</b>, and <b>Kubernetes</b>. Below is a snapshot of my key achievements. Click the tabs above to explore my skills, career, and visualized impacts in detail.
                 </p>
 
                 <h3 class="text-2xl font-semibold text-gray-900 mb-6">Key Achievements (Snapshot)</h3>
@@ -157,12 +157,12 @@
                     <div id="exp-cloud" class="expertise-content">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Cloud & DevOps</h3>
                         <p class="text-base text-gray-600 mb-4">Building, deploying, and managing scalable infrastructure with a focus on automation and orchestration.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <b class="font-bold">Kubernetes</b>, <b class="font-bold">AWS</b> (EC2, SQS, <b class="font-bold">Aurora DB</b>), <b class="font-bold">Docker</b>, <b class="font-bold">Jenkins</b>, Git/GitHub, CI/CD</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <b>Kubernetes</b>, <b>AWS</b> (EC2, SQS, <b>Aurora DB</b>), <b>Docker</b>, <b>Jenkins</b>, Git/GitHub, CI/CD</p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Automated scalable <b class="font-bold">OpenTelemetry</b> collector deployments using <b class="font-bold">Kubernetes DaemonSets</b> and sidecars.</li>
-                            <li>Led migration and streamlining of CI/CD to <b class="font-bold">Jenkins</b>, achieving a 40% deployment time reduction.</li>
-                            <li>Modernized core infrastructure by updating <b class="font-bold">Docker</b> and Node.js versions.</li>
+                            <li>Automated scalable <b>OpenTelemetry</b> collector deployments using <b>Kubernetes DaemonSets</b> and sidecars.</li>
+                            <li>Led migration and streamlining of CI/CD to <b>Jenkins</b>, achieving a 40% deployment time reduction.</li>
+                            <li>Modernized core infrastructure by updating <b>Docker</b> and Node.js versions.</li>
                             <li>Managed end-to-end maintenance of 18+ microservices, keeping base image (Ubuntu) and package dependencies up-to-date.</li>
                         </ul>
                     </div>
@@ -171,14 +171,14 @@
                     <div id="exp-backend" class="expertise-content hidden">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Backend & Architecture</h3>
                         <p class="text-base text-gray-600 mb-4">Designing and developing resilient, high-performance microservices and APIs.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> Microservices, <b class="font-bold">System Design</b>, <b class="font-bold">Python</b> (Proficient), <b class="font-bold">Flask</b>, <b class="font-bold">Multi-threading</b>, Java</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> Microservices, <b>System Design</b>, <b>Python</b> (Proficient), <b>Flask</b>, <b>Multi-threading</b>, Java</p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Led re-architecture of a major microservice for <b class="font-bold">100% GDPR compliance</b>.</li>
-                            <li>Optimized critical API performance, achieving a <b class="font-bold">25% boost</b> using <b class="font-bold">Redis caching</b> and <b class="font-bold">multi-threading</b>.</li>
-                            <li>Developed and maintained core backend microservices using the <b class="font-bold">Flask</b> framework.</li>
-                            <li>Mentored junior team members on <b class="font-bold">system design</b> and clean code best practices.</li>
-                            <li>Developed automation scripts in DXL and <b class="font-bold">Python</b> at KPIT.</li>
+                            <li>Led re-architecture of a major microservice for <b>100% GDPR compliance</b>.</li>
+                            <li>Optimized critical API performance, achieving a <b>25% boost</b> using <b>Redis caching</b> and <b>multi-threading</b>.</li>
+                            <li>Developed and maintained core backend microservices using the <b>Flask</b> framework.</li>
+                            <li>Mentored junior team members on <b>system design</b> and clean code best practices.</li>
+                            <li>Developed automation scripts in DXL and <b>Python</b> at KPIT.</li>
                         </ul>
                     </div>
                     
@@ -186,13 +186,13 @@
                     <div id="exp-data" class="expertise-content hidden">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Data & Messaging</h3>
                         <p class="text-base text-gray-600 mb-4">Handling data persistence, caching, and asynchronous communication between services.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <b class="font-bold">AWS Aurora DB</b>, <b class="font-bold">SQL</b>, <b class="font-bold">Redis</b>, Hibernate, <b class="font-bold">RabbitMQ</b>, <b class="font-bold">SQS</b></p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <b>AWS Aurora DB</b>, <b>SQL</b>, <b>Redis</b>, Hibernate, <b>RabbitMQ</b>, <b>SQS</b></p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Deep expertise in <b class="font-bold">AWS services</b>, including <b class="font-bold">Aurora DB</b>.</li>
-                            <li>Implemented and managed robust messaging systems (<b class="font-bold">RabbitMQ, SQS</b>) for asynchronous data communication.</li>
-                            <li>Optimized critical API performance with <b class="font-bold">Redis caching</b>.</li>
-                            <li>Leveraged <b class="font-bold">SQL</b> and Hibernate for database operations.</li>
+                            <li>Deep expertise in <b>AWS services</b>, including <b>Aurora DB</b>.</li>
+                            <li>Implemented and managed robust messaging systems (<b>RabbitMQ, SQS</b>) for asynchronous data communication.</li>
+                            <li>Optimized critical API performance with <b>Redis caching</b>.</li>
+                            <li>Leveraged <b>SQL</b> and Hibernate for database operations.</li>
                         </ul>
                     </div>
 
@@ -200,14 +200,14 @@
                     <div id="exp-observe" class="expertise-content hidden">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Observability</h3>
                         <p class="text-base text-gray-600 mb-4">Ensuring system health and performance through comprehensive monitoring, tracing, and logging.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Tools:</strong> <b class="font-bold">OpenTelemetry</b>, <b class="font-bold">Dynatrace</b>, <b class="font-bold">Datadog</b>, <b class="font-bold">Splunk</b>, <b class="font-bold">Logentries</b>, <b class="font-bold">Bugsnag</b>, Logging, JIRA, Dialogflow</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Tools:</strong> <b>OpenTelemetry</b>, <b>Dynatrace</b>, <b>Datadog</b>, <b>Splunk</b>, <b>Logentries</b>, <b>Bugsnag</b>, Logging, JIRA, Dialogflow</p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Architected and implemented <b class="font-bold">OpenTelemetry</b> tracing and custom metrics, integrated with <b class="font-bold">Dynatrace</b>.</li>
-                            <li>Cut incident detection time by <b class="font-bold">30%</b> through enhanced system observability.</li>
+                            <li>Architected and implemented <b>OpenTelemetry</b> tracing and custom metrics, integrated with <b>Dynatrace</b>.</li>
+                            <li>Cut incident detection time by <b>30%</b> through enhanced system observability.</li>
                             <li>Built real-time dashboards, defined data-driven SLOs, and configured proactive alerting (PagerDuty/Slack).</li>
-                            <li>Improved Mean Time to Recovery (<b class="font-bold">MTTR</b>) by <b class="font-bold">25%</b>.</li>
-                            <li>Integrated <b class="font-bold">Jira</b> for improved project visibility and management.</li>
+                            <li>Improved Mean Time to Recovery (<b>MTTR</b>) by <b>25%</b>.</li>
+                            <li>Integrated <b>Jira</b> for improved project visibility and management.</li>
                         </ul>
                     </div>
                 </div>
@@ -234,10 +234,10 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2 open">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b class="font-bold">Cloud Observability & Tracing:</b> Architected and implemented OpenTelemetry tracing and custom metrics, integrated with Dynatrace for unified analysis.</li>
-                                <li><b class="font-bold">Kubernetes Automation:</b> Automated scalable OpenTelemetry collector deployments using Kubernetes DaemonSets and sidecars across 18+ microservices.</li>
-                                <li><b class="font-bold">System Resiliency:</b> Defined SLOs, built real-time dashboards, and configured proactive alerting (PagerDuty/Slack), improving Mean Time to Recovery (MTTR) by 25%.</li>
-                                <li><b class="font-bold">Maintenance & Mentorship:</b> Managed microservice maintenance (Python/Ubuntu updates); mentored junior team members on system design.</li>
+                                <li><b>Cloud Observability & Tracing:</b> Architected and implemented OpenTelemetry tracing and custom metrics, integrated with Dynatrace for unified analysis.</li>
+                                <li><b>Kubernetes Automation:</b> Automated scalable OpenTelemetry collector deployments using Kubernetes DaemonSets and sidecars across 18+ microservices.</li>
+                                <li><b>System Resiliency:</b> Defined SLOs, built real-time dashboards, and configured proactive alerting (PagerDuty/Slack), improving Mean Time to Recovery (MTTR) by 25%.</li>
+                                <li><b>Maintenance & Mentorship:</b> Managed microservice maintenance (Python/Ubuntu updates); mentored junior team members on system design.</li>
                             </ul>
                         </div>
                     </div>
@@ -255,8 +255,8 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b class="font-bold">DevOps Transformation:</b> Led migration and streamlining of CI/CD to Jenkins, achieving the 40% deployment time reduction.</li>
-                                <li><b class="font-bold">Infrastructure Modernization:</b> Updated Docker and Node.js versions; enhanced application security measures (e.g., GitHub token removal).</li>
+                                <li><b>DevOps Transformation:</b> Led migration and streamlining of CI/CD to Jenkins, achieving the 40% deployment time reduction.</li>
+                                <li><b>Infrastructure Modernization:</b> Updated Docker and Node.js versions; enhanced application security measures (e.g., GitHub token removal).</li>
                             </ul>
                         </div>
                     </div>
@@ -274,9 +274,9 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b class="font-bold">Compliance & Architecture:</b> Led re-architecture of a major microservice for 100% GDPR compliance.</li>
-                                <li><b class="font-bold">Performance Optimization:</b> Optimized critical API performance, achieving a 25% boost using Redis caching and multi-threading.</li>
-                                <li><b class="font-bold">Messaging Systems:</b> Implemented and managed robust messaging (<b class="font-bold">RabbitMQ</b>, <b class="font-bold">SQS</b>) for asynchronous data communication.</li>
+                                <li><b>Compliance & Architecture:</b> Led re-architecture of a major microservice for 100% GDPR compliance.</li>
+                                <li><b>Performance Optimization:</b> Optimized critical API performance, achieving a 25% boost using Redis caching and multi-threading.</li>
+                                <li><b>Messaging Systems:</b> Implemented and managed robust messaging (<b>RabbitMQ, SQS</b>) for asynchronous data communication.</li>
                             </ul>
                         </div>
                     </div>
@@ -294,8 +294,8 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed and maintained core backend microservices using the <b class="font-bold">Flask</b> framework.</li>
-                                <li>Integrated <b class="font-bold">Jira</b> for improved project visibility and management.</li>
+                                <li>Developed and maintained core backend microservices using the <b>Flask</b> framework.</li>
+                                <li>Integrated <b>Jira</b> for improved project visibility and management.</li>
                             </ul>
                         </div>
                     </div>
@@ -313,8 +313,8 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed automation scripts in <b class="font-bold">DXL</b> and <b class="font-bold">Python</b>.</li>
-                                <li>Implemented <b class="font-bold">RTC plugins</b> using <b class="font-bold">Java</b>.</li>
+                                <li>Developed automation scripts in <b>DXL</b> and <b>Python</b>.</li>
+                                <li>Implemented <b>RTC plugins</b> using <b>Java</b>.</li>
                                 <li>Created utilities to streamline project management processes.</li>
                             </ul>
                         </div>
@@ -333,7 +333,7 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b class="font-bold">Content Creation:</b> Served as a part-time technical content writer focusing on educational material for a broad technical audience.</li>
+                                <li><b>Content Creation:</b> Served as a part-time technical content writer focusing on educational material for a broad technical audience.</li>
                             </ul>
                         </div>
                     </div>
@@ -351,10 +351,10 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed a <b class="font-bold">Java Spring MVC</b> web application integrated with Bootstrap for the frontend.</li>
-                                <li>Used <b class="font-bold">Maven</b> for dependency management and <b class="font-bold">Hibernate</b> for database operations.</li>
-                                <li>Integrated a chatbot using <b class="font-bold">DialogFlow</b>'s API.AI.</li>
-                                <li>Created an automation tool with <b class="font-bold">PyAutoGUI</b> and <b class="font-bold">Selenium WebDriver</b>.</li>
+                                <li>Developed a <b>Java Spring MVC</b> web application integrated with Bootstrap for the frontend.</li>
+                                <li>Used <b>Maven</b> for dependency management and <b>Hibernate</b> for database operations.</li>
+                                <li>Integrated a chatbot using <b>DialogFlow</b>'s API.AI.</li>
+                                <li>Created an automation tool with <b>PyAutoGUI</b> and <b>Selenium WebDriver</b>.</li>
                             </ul>
                         </div>
                     </div>
@@ -372,7 +372,7 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed an application in <b class="font-bold">Python</b> for <b class="font-bold">Raspberry Pi 3</b>, interfaced with an LCD screen (Embedded Development Internship).</li>
+                                <li>Developed an application in <b>Python</b> for <b>Raspberry Pi 3</b>, interfaced with an LCD screen (Embedded Development Internship).</li>
                             </ul>
                         </div>
                     </div>
@@ -437,7 +437,7 @@
                         <strong class="font-medium">Certs:</strong> Pragmatic System Design, JavaScript Algorithms & Data Structures, Responsive Web Design, Django & Python.
                     </p>
                     <p class="text-gray-700">
-                        <strong class="font-medium">Languages:</strong> <b class="font-bold">Hindi (Native/Fluent)</b>, English, Marathi, Gujarati.
+                        <strong class="font-medium">Languages:</strong> <b>Hindi (Native/Fluent)</b>, English, Marathi, Gujarati.
                     </p>
                 </div>
             </div>
