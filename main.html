@@ -7,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Calm Neutral Tech (BG: gray-50, Content: white, Text: gray-800, Accent: blue-600) -->
-    <!-- Application Structure Plan: Designed a tab-based SPA structure with a sticky top navigation (Home, Core Expertise, Career Timeline, Key Impacts). This is superior to a linear resume as it allows non-linear exploration. Users (recruiters) can jump directly to the section they care about (e.g., 'Core Expertise') without scrolling. The 'Core Expertise' section is further broken down into themes (Cloud, Backend, etc.) which synthesizes skills and related job-specific achievements, providing immediate context. The 'Key Impacts' section visualizes quantitative achievements for maximum impact. -->
-    <!-- Visualization & Content Choices: Report Info: Summary/Achievements -> Goal: Inform (at aglance) -> Viz: HTML/Tailwind 'Stat Cards' -> Interaction: Static -> Justification: High-impact, scannable. | Report Info: Skills & Experience -> Goal: Organize/Relate -> Viz: JS-powered HTML Tabs (by theme) -> Interaction: Click (to switch theme) -> Justification: Connects skills to real-world application, a key task for recruiters. | Report Info: Key Impacts (30%, 40%, etc.) -> Goal: Compare (Before/After) -> Viz: Bar Charts (Chart.js on Canvas) -> Interaction: Hover (tooltips) -> Justification: Visualizing numbers makes them far more memorable and impactful. | CONFIRMING NO SVG/Mermaid. -->
+    <!-- Application Structure Plan: Tab-based SPA (Home, Core Expertise, Career Timeline, Key Impacts) allowing non-linear exploration. This structure prioritizes HR scannability by grouping skills thematically and visualizing quantifiable impacts. Focus is on fluid, responsive layout across all breakpoints. -->
+    <!-- Visualization & Content Choices: Static Stat Cards (Home), JS-powered Thematic Tabs (Expertise) for categorization, Collapsible/Expandable Timeline with Chevrons (Timeline), Bar Charts (Chart.js on Canvas) to visualize metrics (Impacts). CONFIRMING NO SVG/Mermaid. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -29,19 +29,14 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* CRITICAL: Chart container uses responsive height utility classes */
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            height: 320px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+            /* h-80/h-96 classes applied directly in HTML */
         }
         .timeline-item-header {
             cursor: pointer;
@@ -86,13 +81,14 @@
             <div class="text-right mt-4 md:mt-0">
                 <a href="tel:+919354516133" class="text-gray-700 hover:text-blue-600 block">+919354516133</a>
                 <a href="mailto:rgunkar@gmail.com" class="text-gray-700 hover:text-blue-600 block">rgunkar@gmail.com</a>
+                <a href="https://rgunkar.github.io/rahul-gunkar/" target="_blank" class="text-blue-600 hover:underline block">Personal Site</a>
                 <a href="https://www.linkedin.com/in/rahul-gunkar" target="_blank" class="text-blue-600 hover:underline block">linkedin.com/in/rahul-gunkar</a>
             </div>
         </header>
 
         <!-- Sticky Navigation -->
         <nav class="sticky top-0 bg-white shadow-md z-10 mb-8 rounded-lg">
-            <ul class="flex justify-center space-x-4 md:space-x-8 p-4 border-b border-gray-200">
+            <ul class="flex flex-wrap justify-center space-x-2 md:space-x-8 p-4 border-b border-gray-200">
                 <li><button class="nav-link active font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="home">&#127968; Home</button></li>
                 <li><button class="nav-link font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="expertise">&#128187; Core Expertise</button></li>
                 <li><button class="nav-link font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="timeline">&#128197; Career Timeline</button></li>
@@ -106,7 +102,7 @@
             <section id="home" class="content-section bg-white p-6 md:p-8 rounded-lg shadow-sm">
                 <h2 class="text-3xl font-semibold text-gray-900 mb-4">Professional Summary</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                    This is an interactive overview of my 7+ years as a results-driven <b>Senior Software Engineer</b>. My expertise lies in high-scale backend development, microservices, and cloud-native infrastructure, with a proficiency in <b>Python</b>, <b>System Design</b>, and <b>Kubernetes</b>. Below is a snapshot of my key achievements. Click the tabs above to explore my skills, career, and visualized impacts in detail.
+                    This is an interactive overview of my 7+ years as a results-driven <span style="font-weight: 700;">Senior Software Engineer</span>. My expertise lies in high-scale backend development, microservices, and cloud-native infrastructure, with a proficiency in <span style="font-weight: 700;">Python</span>, <span style="font-weight: 700;">System Design</span>, and <span style="font-weight: 700;">Kubernetes</span>. Below is a snapshot of my key achievements. Click the tabs above to explore my skills, career, and visualized impacts in detail.
                 </p>
 
                 <h3 class="text-2xl font-semibold text-gray-900 mb-6">Key Achievements (Snapshot)</h3>
@@ -157,12 +153,12 @@
                     <div id="exp-cloud" class="expertise-content">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Cloud & DevOps</h3>
                         <p class="text-base text-gray-600 mb-4">Building, deploying, and managing scalable infrastructure with a focus on automation and orchestration.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <b>Kubernetes</b>, <b>AWS</b> (EC2, SQS, <b>Aurora DB</b>), <b>Docker</b>, <b>Jenkins</b>, Git/GitHub, CI/CD</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <span style="font-weight: 700;">Kubernetes</span>, <span style="font-weight: 700;">AWS</span> (EC2, SQS, <span style="font-weight: 700;">Aurora DB</span>), <span style="font-weight: 700;">Docker</span>, <span style="font-weight: 700;">Jenkins</span>, Git/GitHub, CI/CD</p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Automated scalable <b>OpenTelemetry</b> collector deployments using <b>Kubernetes DaemonSets</b> and sidecars.</li>
-                            <li>Led migration and streamlining of CI/CD to <b>Jenkins</b>, achieving a 40% deployment time reduction.</li>
-                            <li>Modernized core infrastructure by updating <b>Docker</b> and Node.js versions.</li>
+                            <li>Automated scalable <span style="font-weight: 700;">OpenTelemetry</span> collector deployments using <span style="font-weight: 700;">Kubernetes DaemonSets</span> and sidecars.</li>
+                            <li>Led migration and streamlining of CI/CD to <span style="font-weight: 700;">Jenkins</span>, achieving a 40% deployment time reduction.</li>
+                            <li>Modernized core infrastructure by updating <span style="font-weight: 700;">Docker</span> and Node.js versions.</li>
                             <li>Managed end-to-end maintenance of 18+ microservices, keeping base image (Ubuntu) and package dependencies up-to-date.</li>
                         </ul>
                     </div>
@@ -171,14 +167,14 @@
                     <div id="exp-backend" class="expertise-content hidden">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Backend & Architecture</h3>
                         <p class="text-base text-gray-600 mb-4">Designing and developing resilient, high-performance microservices and APIs.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> Microservices, <b>System Design</b>, <b>Python</b> (Proficient), <b>Flask</b>, <b>Multi-threading</b>, Java</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> Microservices, <span style="font-weight: 700;">System Design</span>, <span style="font-weight: 700;">Python</span> (Proficient), <span style="font-weight: 700;">Flask</span>, <span style="font-weight: 700;">Multi-threading</span>, Java (Basics), JavaScript (Basics)</p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Led re-architecture of a major microservice for <b>100% GDPR compliance</b>.</li>
-                            <li>Optimized critical API performance, achieving a <b>25% boost</b> using <b>Redis caching</b> and <b>multi-threading</b>.</li>
-                            <li>Developed and maintained core backend microservices using the <b>Flask</b> framework.</li>
-                            <li>Mentored junior team members on <b>system design</b> and clean code best practices.</li>
-                            <li>Developed automation scripts in DXL and <b>Python</b> at KPIT.</li>
+                            <li>Led re-architecture of a major microservice for <span style="font-weight: 700;">100% GDPR compliance</span>.</li>
+                            <li>Optimized critical API performance, achieving a <span style="font-weight: 700;">25% boost</span> using <span style="font-weight: 700;">Redis caching</span> and <span style="font-weight: 700;">multi-threading</span>.</li>
+                            <li>Developed and maintained core backend microservices using the <span style="font-weight: 700;">Flask</span> framework.</li>
+                            <li>Mentored junior team members on <span style="font-weight: 700;">system design</span> and clean code best practices.</li>
+                            <li>Developed automation scripts in DXL and <span style="font-weight: 700;">Python</span> at KPIT.</li>
                         </ul>
                     </div>
                     
@@ -186,13 +182,13 @@
                     <div id="exp-data" class="expertise-content hidden">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Data & Messaging</h3>
                         <p class="text-base text-gray-600 mb-4">Handling data persistence, caching, and asynchronous communication between services.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <b>AWS Aurora DB</b>, <b>SQL</b>, <b>Redis</b>, Hibernate, <b>RabbitMQ</b>, <b>SQS</b></p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <span style="font-weight: 700;">AWS Aurora DB</span>, <span style="font-weight: 700;">SQL</span>, <span style="font-weight: 700;">Redis</span>, <span style="font-weight: 700;">RabbitMQ</span>, <span style="font-weight: 700;">SQS</span></p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Deep expertise in <b>AWS services</b>, including <b>Aurora DB</b>.</li>
-                            <li>Implemented and managed robust messaging systems (<b>RabbitMQ, SQS</b>) for asynchronous data communication.</li>
-                            <li>Optimized critical API performance with <b>Redis caching</b>.</li>
-                            <li>Leveraged <b>SQL</b> and Hibernate for database operations.</li>
+                            <li>Deep expertise in <span style="font-weight: 700;">AWS services</span>, including <span style="font-weight: 700;">Aurora DB</span>.</li>
+                            <li>Implemented and managed robust messaging systems (<span style="font-weight: 700;">RabbitMQ, SQS</span>) for asynchronous data communication.</li>
+                            <li>Optimized critical API performance with <span style="font-weight: 700;">Redis caching</span>.</li>
+                            <li>Leveraged <span style="font-weight: 700;">SQL</span> for database operations.</li>
                         </ul>
                     </div>
 
@@ -200,14 +196,14 @@
                     <div id="exp-observe" class="expertise-content hidden">
                         <h3 class="text-2xl font-semibold text-blue-700 mb-4">Observability</h3>
                         <p class="text-base text-gray-600 mb-4">Ensuring system health and performance through comprehensive monitoring, tracing, and logging.</p>
-                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Tools:</strong> <b>OpenTelemetry</b>, <b>Dynatrace</b>, <b>Datadog</b>, <b>Splunk</b>, <b>Logentries</b>, <b>Bugsnag</b>, Logging, JIRA, Dialogflow</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Tools:</strong> <span style="font-weight: 700;">OpenTelemetry</span>, <span style="font-weight: 700;">Dynatrace</span>, <span style="font-weight: 700;">Datadog</span>, <span style="font-weight: 700;">Splunk</span>, <span style="font-weight: 700;">Logentries</span>, <span style="font-weight: 700;">Bugsnag</span>, Logging, JIRA</p>
                         <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
-                            <li>Architected and implemented <b>OpenTelemetry</b> tracing and custom metrics, integrated with <b>Dynatrace</b>.</li>
-                            <li>Cut incident detection time by <b>30%</b> through enhanced system observability.</li>
+                            <li>Architected and implemented <span style="font-weight: 700;">OpenTelemetry</span> tracing and custom metrics, integrated with <span style="font-weight: 700;">Dynatrace</span>.</li>
+                            <li>Cut incident detection time by <span style="font-weight: 700;">30%</span> through enhanced system observability.</li>
                             <li>Built real-time dashboards, defined data-driven SLOs, and configured proactive alerting (PagerDuty/Slack).</li>
-                            <li>Improved Mean Time to Recovery (<b>MTTR</b>) by <b>25%</b>.</li>
-                            <li>Integrated <b>Jira</b> for improved project visibility and management.</li>
+                            <li>Improved Mean Time to Recovery (<span style="font-weight: 700;">MTTR</span>) by <span style="font-weight: 700;">25%</span>.</li>
+                            <li>Integrated <span style="font-weight: 700;">Jira</span> for improved project visibility and management.</li>
                         </ul>
                     </div>
                 </div>
@@ -234,10 +230,10 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2 open">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b>Cloud Observability & Tracing:</b> Architected and implemented OpenTelemetry tracing and custom metrics, integrated with Dynatrace for unified analysis.</li>
-                                <li><b>Kubernetes Automation:</b> Automated scalable OpenTelemetry collector deployments using Kubernetes DaemonSets and sidecars across 18+ microservices.</li>
-                                <li><b>System Resiliency:</b> Defined SLOs, built real-time dashboards, and configured proactive alerting (PagerDuty/Slack), improving Mean Time to Recovery (MTTR) by 25%.</li>
-                                <li><b>Maintenance & Mentorship:</b> Managed microservice maintenance (Python/Ubuntu updates); mentored junior team members on system design.</li>
+                                <li><span style="font-weight: 700;">Cloud Observability & Tracing:</span> Architected and implemented OpenTelemetry tracing and custom metrics, integrated with Dynatrace for unified analysis.</li>
+                                <li><span style="font-weight: 700;">Kubernetes Automation:</span> Automated scalable OpenTelemetry collector deployments using Kubernetes DaemonSets and sidecars across 18+ microservices.</li>
+                                <li><span style="font-weight: 700;">System Resiliency:</span> Defined SLOs, built real-time dashboards, and configured proactive alerting (PagerDuty/Slack), improving Mean Time to Recovery (MTTR) by 25\%.</li>
+                                <li><span style="font-weight: 700;">Maintenance & Mentorship:</span> Managed microservice maintenance (Python/Ubuntu updates); mentored junior team members on system design.</li>
                             </ul>
                         </div>
                     </div>
@@ -246,17 +242,17 @@
                     <div class="timeline-item">
                         <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128188;</span>
                         <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
-                            <div>
+                             <div>
                                 <h3 class="text-2xl font-semibold text-gray-900">Senior Software Engineer</h3>
                                 <p class="text-lg font-medium text-gray-700">Talentica Software <span class="text-gray-500 font-normal">| Pune, India</span></p>
                                 <time class="text-sm text-gray-500">10/2022 – 05/2023</time>
                             </div>
-                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
                         </div>
-                        <div class="timeline-item-body mt-2 pl-2">
+                        <div class="timeline-item-body mt-2 pl-2 open">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b>DevOps Transformation:</b> Led migration and streamlining of CI/CD to Jenkins, achieving the 40% deployment time reduction.</li>
-                                <li><b>Infrastructure Modernization:</b> Updated Docker and Node.js versions; enhanced application security measures (e.g., GitHub token removal).</li>
+                                <li><span style="font-weight: 700;">DevOps Transformation:</span> Led migration and streamlining of CI/CD to Jenkins, achieving the 40% deployment time reduction.</li>
+                                <li><span style="font-weight: 700;">Infrastructure Modernization:</span> Updated Docker and Node.js versions; enhanced application security measures (e.g., GitHub token removal).</li>
                             </ul>
                         </div>
                     </div>
@@ -270,13 +266,13 @@
                                 <p class="text-lg font-medium text-gray-700">Talentica Software <span class="text-gray-500 font-normal">| Pune, India</span></p>
                                 <time class="text-sm text-gray-500">10/2021 – 09/2022</time>
                             </div>
-                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
                         </div>
-                        <div class="timeline-item-body mt-2 pl-2">
+                        <div class="timeline-item-body mt-2 pl-2 open">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b>Compliance & Architecture:</b> Led re-architecture of a major microservice for 100% GDPR compliance.</li>
-                                <li><b>Performance Optimization:</b> Optimized critical API performance, achieving a 25% boost using Redis caching and multi-threading.</li>
-                                <li><b>Messaging Systems:</b> Implemented and managed robust messaging (<b>RabbitMQ, SQS</b>) for asynchronous data communication.</li>
+                                <li><span style="font-weight: 700;">Compliance & Architecture:</span> Led re-architecture of a major microservice for 100% GDPR compliance.</li>
+                                <li><span style="font-weight: 700;">Performance Optimization:</span> Optimized critical API performance, achieving a 25% boost using Redis caching and multi-threading.</li>
+                                <li><span style="font-weight: 700;">Messaging Systems:</span> Implemented and managed robust messaging (<span style="font-weight: 700;">RabbitMQ, SQS</span>) for asynchronous data communication.</li>
                             </ul>
                         </div>
                     </div>
@@ -290,12 +286,12 @@
                                 <p class="text-lg font-medium text-gray-700">Talentica Software <span class="text-gray-500 font-normal">| Pune, India</span></p>
                                 <time class="text-sm text-gray-500">01/2020 – 09/2021</time>
                             </div>
-                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
                         </div>
-                        <div class="timeline-item-body mt-2 pl-2">
+                        <div class="timeline-item-body mt-2 pl-2 open">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed and maintained core backend microservices using the <b>Flask</b> framework.</li>
-                                <li>Integrated <b>Jira</b> for improved project visibility and management.</li>
+                                <li>Developed and maintained core backend microservices using the <span style="font-weight: 700;">Flask</span> framework.</li>
+                                <li>Integrated <span style="font-weight: 700;">Jira</span> for improved project visibility and management.</li>
                             </ul>
                         </div>
                     </div>
@@ -313,8 +309,8 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed automation scripts in <b>DXL</b> and <b>Python</b>.</li>
-                                <li>Implemented <b>RTC plugins</b> using <b>Java</b>.</li>
+                                <li>Developed automation scripts in <span style="font-weight: 700;">DXL</span> and <span style="font-weight: 700;">Python</span>.</li>
+                                <li>Implemented <span style="font-weight: 700;">RTC plugins</span> using <span style="font-weight: 700;">Java</span>.</li>
                                 <li>Created utilities to streamline project management processes.</li>
                             </ul>
                         </div>
@@ -333,7 +329,7 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><b>Content Creation:</b> Served as a part-time technical content writer focusing on educational material for a broad technical audience.</li>
+                                <li><span style="font-weight: 700;">Content Creation:</span> Served as a part-time technical content writer focusing on educational material for a broad technical audience.</li>
                             </ul>
                         </div>
                     </div>
@@ -351,10 +347,10 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed a <b>Java Spring MVC</b> web application integrated with Bootstrap for the frontend.</li>
-                                <li>Used <b>Maven</b> for dependency management and <b>Hibernate</b> for database operations.</li>
-                                <li>Integrated a chatbot using <b>DialogFlow</b>'s API.AI.</li>
-                                <li>Created an automation tool with <b>PyAutoGUI</b> and <b>Selenium WebDriver</b>.</li>
+                                <li>Developed a <span style="font-weight: 700;">Java Spring MVC</span> web application integrated with Bootstrap for the frontend.</li>
+                                <li>Used <span style="font-weight: 700;">Maven</span> for dependency management and <span style="font-weight: 700;">Hibernate</span> for database operations.</li>
+                                <li>Integrated a chatbot using <span style="font-weight: 700;">DialogFlow</span>'s API.AI.</li>
+                                <li>Created an automation tool with <span style="font-weight: 700;">PyAutoGUI</span> and <span style="font-weight: 700;">Selenium WebDriver</span>.</li>
                             </ul>
                         </div>
                     </div>
@@ -372,25 +368,26 @@
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Developed an application in <b>Python</b> for <b>Raspberry Pi 3</b>, interfaced with an LCD screen (Embedded Development Internship).</li>
+                                <li>Developed an application in <span style="font-weight: 700;">Python</span> for <span style="font-weight: 700;">Raspberry Pi 3</span>, interfaced with an LCD screen (Embedded Development Internship).</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Timeline Item: Active Member -->
+                    <!-- Timeline Item: DRISHTI (Club & Robocon) -->
                     <div class="timeline-item">
                         <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128105;</span>
                         <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
                             <div>
-                                <h3 class="text-2xl font-semibold text-gray-900">Active Member</h3>
-                                <p class="text-lg font-medium text-gray-700">DRISHTI-A Revolutionary Concept <span class="text-gray-500 font-normal">| Community Project</span></p>
+                                <h3 class="text-2xl font-semibold text-gray-900">Technical Club Member & Robotics</h3>
+                                <p class="text-lg font-medium text-gray-700">DRISHTI - A Revolutionary Concept (Technical Club) <span class="text-gray-500 font-normal">| College Activities</span></p>
                                 <time class="text-sm text-gray-500">01/2015 – 04/2018</time>
                             </div>
                             <span class="chevron text-2xl text-blue-600">&#9660;</span>
                         </div>
                         <div class="timeline-item-body mt-2 pl-2">
                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>Active team member on community projects, collaborating with a team of around 80 members on various initiatives.</li>
+                                <li>Active team member on community projects, collaborating with a team of around 80 members on various social initiatives.</li>
+                                <li>Participated in the <span style="font-weight: 700;">Asia-Pacific Robot Contest (Robocon)</span> for three consecutive years (2015-2017), focusing on robot control systems and embedded programming.</li>
                             </ul>
                         </div>
                     </div>
@@ -404,17 +401,17 @@
                     My focus is on delivering measurable results. The charts below visualize the direct impact of my optimization and observability initiatives. These aren't just percentages; they represent tangible improvements in deployment speed, system stability, and performance.
                 </p>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div>
+                    <div class="flex flex-col">
                         <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">DevOps & CI/CD Optimization</h3>
                         <p class="text-center text-gray-600 mb-4">Migrating to Jenkins streamlined the CI/CD pipeline, dramatically cutting deployment times.</p>
-                        <div class="chart-container">
+                        <div class="chart-container h-80 lg:h-96">
                             <canvas id="ciCdChart"></canvas>
                         </div>
                     </div>
-                    <div>
+                    <div class="flex flex-col">
                         <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">System Performance & Observability</h3>
                         <p class="text-center text-gray-600 mb-4">New observability tools and API optimizations led to faster detection and recovery.</p>
-                        <div class="chart-container">
+                        <div class="chart-container h-80 lg:h-96">
                             <canvas id="performanceChart"></canvas>
                         </div>
                     </div>
@@ -437,7 +434,7 @@
                         <strong class="font-medium">Certs:</strong> Pragmatic System Design, JavaScript Algorithms & Data Structures, Responsive Web Design, Django & Python.
                     </p>
                     <p class="text-gray-700">
-                        <strong class="font-medium">Languages:</strong> <b>Hindi (Native/Fluent)</b>, English, Marathi, Gujarati.
+                        <strong class="font-medium">Languages:</strong> <span style="font-weight: 700;">Hindi (Native/Fluent)</span>, English (Fluent), Marathi (Basics), Gujarati (Basics).
                     </p>
                 </div>
             </div>
@@ -445,219 +442,230 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-            const expertiseTabs = document.querySelectorAll('.expertise-tab');
-            const expertiseContents = document.querySelectorAll('.expertise-content');
-            const timelineItems = document.querySelectorAll('.timeline-item'); // Changed to select the parent item
+        // EXPERTISE_DATA is simplified to only include content necessary for the front-end display, 
+        // as the AI Assistant features requiring API calls have been removed.
 
-            function updateNav(targetId) {
-                navLinks.forEach(link => {
-                    if (link.dataset.target === targetId) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
+        // Note: The original JS logic for the AI assistant is removed entirely.
+        
+        // --- Core Application Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const expertiseTabs = document.querySelectorAll('.expertise-tab');
+            const expertiseContents = document.querySelectorAll('.expertise-content');
+            const timelineItems = document.querySelectorAll('.timeline-item');
 
-                contentSections.forEach(section => {
-                    if (section.id === targetId) {
-                        section.classList.remove('hidden');
-                    } else {
-                        section.classList.add('hidden');
-                    }
-                });
-            }
+            function updateNav(targetId) {
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const targetId = e.currentTarget.dataset.target;
-                    updateNav(targetId);
-                });
-            });
-
-            expertiseTabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
-                    const targetId = e.currentTarget.dataset.target;
-
-                    expertiseTabs.forEach(t => t.classList.remove('active'));
-                    e.currentTarget.classList.add('active');
-
-                    expertiseContents.forEach(content => {
-                        if (content.id === targetId) {
-                            content.classList.remove('hidden');
-                        } else {
-                            content.classList.add('hidden');
-                        }
-                    });
-                });
-            });
-
-            timelineItems.forEach(item => {
-                const header = item.querySelector('.timeline-item-header');
-                const body = item.querySelector('.timeline-item-body');
-                const chevron = item.querySelector('.chevron');
-
-                // Determine initial state based on 'open' class
-                if (body.classList.contains('open')) {
-                    if (chevron) chevron.classList.add('rotated');
-                } else {
-                    // Ensure all non-default open items start closed
-                    body.classList.remove('open');
-                    if (chevron) chevron.classList.remove('rotated');
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                
+                // Manually trigger chart rendering if Impact tab is selected
+                if (targetId === 'impact') {
+                    renderCharts();
                 }
+            }
 
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.dataset.target;
+                    updateNav(targetId);
+                });
+            });
 
-                header.addEventListener('click', () => {
-                    const isOpen = body.classList.contains('open');
-                    
-                    if (!isOpen) {
-                        // Expand
-                        body.classList.add('open');
-                        if (chevron) chevron.classList.add('rotated');
-                    } else {
-                        // Collapse
-                        body.classList.remove('open');
-                        if (chevron) chevron.classList.remove('rotated');
-                    }
-                });
-            });
+            expertiseTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.dataset.target;
 
+                    expertiseTabs.forEach(t => t.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
 
-            // Initial logic for opening the first item is no longer needed since we handle initial state above
-            // document.querySelectorAll('.timeline-item-body').forEach(body => body.classList.remove('open'));
-            // const mostRecentTimelineItem = document.querySelector('.timeline-item:first-child .timeline-item-body');
-            // if (mostRecentTimelineItem) {
-            //     mostRecentTimelineItem.classList.add('open');
-            // }
+                    expertiseContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
 
-            renderCharts();
-        });
+            timelineItems.forEach(item => {
+                const header = item.querySelector('.timeline-item-header');
+                const body = item.querySelector('.timeline-item-body');
+                const chevron = item.querySelector('.chevron');
 
-        function renderCharts() {
-            Chart.defaults.font.family = "'Inter', sans-serif";
-            Chart.defaults.font.weight = "500";
+                // Set initial state for chevron and body based on 'open' class
+                if (body.classList.contains('open')) {
+                    if (chevron) chevron.classList.add('rotated');
+                } else {
+                    body.classList.remove('open');
+                    if (chevron) chevron.classList.remove('rotated');
+                }
 
-            const ciCdCtx = document.getElementById('ciCdChart')?.getContext('2d');
-            if (ciCdCtx) {
-                new Chart(ciCdCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Deployment Pipeline'],
-                        datasets: [
-                            {
-                                label: 'Relative Time (Before)',
-                                data: [100],
-                                backgroundColor: 'rgba(156, 163, 175, 0.6)',
-                                borderColor: 'rgba(156, 163, 175, 1)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'Relative Time (After)',
-                                data: [60],
-                                backgroundColor: 'rgba(59, 130, 246, 0.6)',
-                                borderColor: 'rgba(59, 130, 246, 1)',
-                                borderWidth: 1
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Deployment Time Reduction (40%)',
-                                font: { size: 16 }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `${context.dataset.label}: ${context.raw}%`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 110,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '%'
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
+                header.addEventListener('click', () => {
+                    const isOpen = body.classList.contains('open');
+                    
+                    if (!isOpen) {
+                        // Expand
+                        body.classList.add('open');
+                        if (chevron) chevron.classList.add('rotated');
+                    } else {
+                        // Collapse
+                        body.classList.remove('open');
+                        if (chevron) chevron.classList.remove('rotated');
+                    }
+                });
+            });
 
-            const performanceCtx = document.getElementById('performanceChart')?.getContext('2d');
-            if (performanceCtx) {
-                new Chart(performanceCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Incident Detection', 'API Response Time', 'MTTR'],
-                        datasets: [
-                            {
-                                label: 'Relative Time (Before)',
-                                data: [100, 100, 100],
-                                backgroundColor: 'rgba(156, 163, 175, 0.6)',
-                                borderColor: 'rgba(156, 163, 175, 1)',
-                                borderWidth: 1
-                            },
-                            {
-                                label: 'Relative Time (After)',
-                                data: [70, 75, 75],
-                                backgroundColor: 'rgba(22, 163, 74, 0.6)',
-                                borderColor: 'rgba(22, 163, 74, 1)',
-                                borderWidth: 1
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'Performance & Recovery Gains (25-30%)',
-                                font: { size: 16 }
-                            },
-                             tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        label += `${context.raw}%`;
-                                        if(context.dataset.label === 'Relative Time (After)') {
-                                            let reduction = 100 - context.raw;
-                                            label += ` (${reduction}% improvement)`;
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 110,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '%'
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
-    </script>
+            // Initial view (Home) is already handled by HTML classes, but ensure charts are ready
+            // We only call renderCharts() when the 'impact' tab is clicked to prevent Chart.js rendering errors when hidden
+        });
+
+        function renderCharts() {
+            // Chart rendering logic (omitted for brevity, but retained in the file provided by the user)
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.font.weight = "500";
+
+            // Destroy existing charts to prevent memory leaks and double rendering
+            if (window.ciCdChartInstance) {
+                window.ciCdChartInstance.destroy();
+            }
+            if (window.performanceChartInstance) {
+                window.performanceChartInstance.destroy();
+            }
+
+            const ciCdCtx = document.getElementById('ciCdChart')?.getContext('2d');
+            if (ciCdCtx) {
+                window.ciCdChartInstance = new Chart(ciCdCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Deployment Pipeline'],
+                        datasets: [
+                            {
+                                label: 'Relative Time (Before)',
+                                data: [100],
+                                backgroundColor: 'rgba(156, 163, 175, 0.6)',
+                                borderColor: 'rgba(156, 163, 175, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Relative Time (After)',
+                                data: [60],
+                                backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Deployment Time Reduction (40%)',
+                                font: { size: 16 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 110,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const performanceCtx = document.getElementById('performanceChart')?.getContext('2d');
+            if (performanceCtx) {
+                window.performanceChartInstance = new Chart(performanceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Incident Detection', 'API Response Time', 'MTTR'],
+                        datasets: [
+                            {
+                                label: 'Relative Time (Before)',
+                                data: [100, 100, 100],
+                                backgroundColor: 'rgba(156, 163, 175, 0.6)',
+                                borderColor: 'rgba(156, 163, 175, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Relative Time (After)',
+                                data: [70, 75, 75],
+                                backgroundColor: 'rgba(22, 163, 74, 0.6)',
+                                borderColor: 'rgba(22, 163, 74, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Performance & Recovery Gains (25-30%)',
+                                font: { size: 16 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += `${context.raw}%`;
+                                        if(context.dataset.label === 'Relative Time (After)') {
+                                            let reduction = 100 - context.raw;
+                                            label += ` (${reduction}% improvement)`;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 110,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
