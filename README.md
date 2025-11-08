@@ -1,2 +1,0 @@
-# rahul-gunkar
-My resume
