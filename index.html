@@ -1,1 +1,672 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume | Rahul Gunkar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Calm Neutral Tech (BG: gray-50, Content: white, Text: gray-800, Accent: blue-600) -->
+    <!-- Application Structure Plan: Tab-based SPA (Home, Core Expertise, Career Timeline, Key Impacts) allowing non-linear exploration. This structure prioritizes HR scannability by grouping skills thematically and visualizing quantifiable impacts. Focus is on fluid, responsive layout across all breakpoints. -->
+    <!-- Visualization & Content Choices: Static Stat Cards (Home), JS-powered Thematic Tabs (Expertise) for categorization, Collapsible/Expandable Timeline with Chevrons (Timeline), Bar Charts (Chart.js on Canvas) to visualize metrics (Impacts). CONFIRMING NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link.active {
+            color: #2563EB; 
+            border-bottom: 2px solid #2563EB;
+            font-weight: 600;
+        }
+        .content-section {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* CRITICAL: Chart container uses responsive height utility classes */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            /* h-80/h-96 classes applied directly in HTML */
+        }
+        .timeline-item-header {
+            cursor: pointer;
+            /* Make the header a flex container to position the chevron */
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0; /* Add padding for a better click target */
+        }
+        .timeline-item-body {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+        }
+        .timeline-item-body.open {
+            max-height: 1000px; 
+            opacity: 1;
+        }
+        .expertise-tab.active {
+            background-color: #2563EB;
+            color: white;
+        }
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <div>
+                <h1 class="text-4xl font-bold text-blue-700">RAHUL GUNKAR</h1>
+                <p class="text-xl text-gray-600">Senior Software Engineer</p>
+            </div>
+            <div class="text-right mt-4 md:mt-0">
+                <a href="tel:+919354516133" class="text-gray-700 hover:text-blue-600 block">+919354516133</a>
+                <a href="mailto:rgunkar@gmail.com" class="text-gray-700 hover:text-blue-600 block">rgunkar@gmail.com</a>
+                <a href="https://rgunkar.github.io/rahul-gunkar/" target="_blank" class="text-blue-600 hover:underline block">Personal Site</a>
+                <a href="https://www.linkedin.com/in/rahul-gunkar" target="_blank" class="text-blue-600 hover:underline block">linkedin.com/in/rahul-gunkar</a>
+            </div>
+        </header>
+
+        <!-- Sticky Navigation -->
+        <nav class="sticky top-0 bg-white shadow-md z-10 mb-8 rounded-lg">
+            <ul class="flex flex-wrap justify-center space-x-2 md:space-x-8 p-4 border-b border-gray-200">
+                <li><button class="nav-link active font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="home">&#127968; Home</button></li>
+                <li><button class="nav-link font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="expertise">&#128187; Core Expertise</button></li>
+                <li><button class="nav-link font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="timeline">&#128197; Career Timeline</button></li>
+                <li><button class="nav-link font-medium text-gray-600 hover:text-blue-600 py-2 px-3" data-target="impact">&#128200; Key Impacts</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main>
+            <!-- Home Section -->
+            <section id="home" class="content-section bg-white p-6 md:p-8 rounded-lg shadow-sm">
+                <h2 class="text-3xl font-semibold text-gray-900 mb-4">Professional Summary</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    This is an interactive overview of my 7+ years as a results-driven <span style="font-weight: 700;">Senior Software Engineer</span>. My expertise lies in high-scale backend development, microservices, and cloud-native infrastructure, with a proficiency in <span style="font-weight: 700;">Python</span>, <span style="font-weight: 700;">System Design</span>, and <span style="font-weight: 700;">Kubernetes</span>. Below is a snapshot of my key achievements. Click the tabs above to explore my skills, career, and visualized impacts in detail.
+                </p>
+
+                <h3 class="text-2xl font-semibold text-gray-900 mb-6">Key Achievements (Snapshot)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg shadow">
+                        <p class="text-4xl font-bold text-blue-700">30%</p>
+                        <p class="text-lg text-gray-800 mt-2">Reduction in incident detection time via OpenTelemetry rollout.</p>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 p-6 rounded-lg shadow">
+                        <p class="text-4xl font-bold text-green-700">40%</p>
+                        <p class="text-lg text-gray-800 mt-2">Reduction in CI/CD deployment time after Jenkins migration.</p>
+                    </div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-6 rounded-lg shadow">
+                        <p class="text-4xl font-bold text-indigo-700">25%</p>
+                        <p class="text-lg text-gray-800 mt-2">Boost in API responsiveness using Redis caching & multi-threading.</p>
+                    </div>
+                    <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg shadow">
+                        <p class="text-4xl font-bold text-yellow-700">100%</T>
+                        <p class="text-lg text-gray-800 mt-2">GDPR compliance achieved by re-architecting a critical microservice.</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-200 p-6 rounded-lg shadow">
+                        <p class="text-4xl font-bold text-purple-700">30%</p>
+                        <p class="text-lg text-gray-800 mt-2">Enhancement in system performance from managing 18+ microservices.</p>
+                    </div>
+                    <div class="bg-red-50 border border-red-200 p-6 rounded-lg shadow">
+                        <p class="text-4xl font-bold text-red-700">25%</p>
+                        <p class="text-lg text-gray-800 mt-2">Improvement in MTTR by implementing proactive alerting pipelines.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Core Expertise Section -->
+            <section id="expertise" class="content-section hidden bg-white p-6 md:p-8 rounded-lg shadow-sm">
+                <h2 class="text-3xl font-semibold text-gray-900 mb-4">Core Expertise</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    My technical skills are not just a list; they are the tools I've used to build, optimize, and scale real-world systems. This section connects my core competencies to the specific projects and achievements they enabled. Click a category to see a curated list of relevant skills and experience.
+                </p>
+
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button class="expertise-tab active py-2 px-4 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white" data-target="exp-cloud">Cloud & DevOps</button>
+                    <button class="expertise-tab py-2 px-4 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white" data-target="exp-backend">Backend & Architecture</button>
+                    <button class="expertise-tab py-2 px-4 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white" data-target="exp-data">Data & Messaging</button>
+                    <button class="expertise-tab py-2 px-4 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-blue-500 hover:text-white" data-target="exp-observe">Observability</button>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg border">
+                    <!-- Cloud & DevOps Content -->
+                    <div id="exp-cloud" class="expertise-content">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-4">Cloud & DevOps</h3>
+                        <p class="text-base text-gray-600 mb-4">Building, deploying, and managing scalable infrastructure with a focus on automation and orchestration.</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <span style="font-weight: 700;">Kubernetes</span>, <span style="font-weight: 700;">AWS</span> (EC2, SQS, <span style="font-weight: 700;">Aurora DB</span>), <span style="font-weight: 700;">Docker</span>, <span style="font-weight: 700;">Jenkins</span>, Git/GitHub, CI/CD</p>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Automated scalable <span style="font-weight: 700;">OpenTelemetry</span> collector deployments using <span style="font-weight: 700;">Kubernetes DaemonSets</span> and sidecars.</li>
+                            <li>Led migration and streamlining of CI/CD to <span style="font-weight: 700;">Jenkins</span>, achieving a 40% deployment time reduction.</li>
+                            <li>Modernized core infrastructure by updating <span style="font-weight: 700;">Docker</span> and Node.js versions.</li>
+                            <li>Managed end-to-end maintenance of 18+ microservices, keeping base image (Ubuntu) and package dependencies up-to-date.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Backend & Architecture Content -->
+                    <div id="exp-backend" class="expertise-content hidden">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-4">Backend & Architecture</h3>
+                        <p class="text-base text-gray-600 mb-4">Designing and developing resilient, high-performance microservices and APIs.</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> Microservices, <span style="font-weight: 700;">System Design</span>, <span style="font-weight: 700;">Python</span> (Proficient), <span style="font-weight: 700;">Flask</span>, <span style="font-weight: 700;">Multi-threading</span>, Java (Basics), JavaScript (Basics)</p>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Led re-architecture of a major microservice for <span style="font-weight: 700;">100% GDPR compliance</span>.</li>
+                            <li>Optimized critical API performance, achieving a <span style="font-weight: 700;">25% boost</span> using <span style="font-weight: 700;">Redis caching</span> and <span style="font-weight: 700;">multi-threading</span>.</li>
+                            <li>Developed and maintained core backend microservices using the <span style="font-weight: 700;">Flask</span> framework.</li>
+                            <li>Mentored junior team members on <span style="font-weight: 700;">system design</span> and clean code best practices.</li>
+                            <li>Developed automation scripts in DXL and <span style="font-weight: 700;">Python</span> at KPIT.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Data & Messaging Content -->
+                    <div id="exp-data" class="expertise-content hidden">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-4">Data & Messaging</h3>
+                        <p class="text-base text-gray-600 mb-4">Handling data persistence, caching, and asynchronous communication between services.</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Skills:</strong> <span style="font-weight: 700;">AWS Aurora DB</span>, <span style="font-weight: 700;">SQL</span>, <span style="font-weight: 700;">Redis</span>, <span style="font-weight: 700;">RabbitMQ</span>, <span style="font-weight: 700;">SQS</span></p>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Deep expertise in <span style="font-weight: 700;">AWS services</span>, including <span style="font-weight: 700;">Aurora DB</span>.</li>
+                            <li>Implemented and managed robust messaging systems (<span style="font-weight: 700;">RabbitMQ, SQS</span>) for asynchronous data communication.</li>
+                            <li>Optimized critical API performance with <span style="font-weight: 700;">Redis caching</span>.</li>
+                            <li>Leveraged <span style="font-weight: 700;">SQL</span> for database operations.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Observability Content -->
+                    <div id="exp-observe" class="expertise-content hidden">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-4">Observability</h3>
+                        <p class="text-base text-gray-600 mb-4">Ensuring system health and performance through comprehensive monitoring, tracing, and logging.</p>
+                        <p class="text-lg font-medium mb-4"><strong class="font-semibold">Key Tools:</strong> <span style="font-weight: 700;">OpenTelemetry</span>, <span style="font-weight: 700;">Dynatrace</span>, <span style="font-weight: 700;">Datadog</span>, <span style="font-weight: 700;">Splunk</span>, <span style="font-weight: 700;">Logentries</span>, <span style="font-weight: 700;">Bugsnag</span>, Logging, JIRA</p>
+                        <h4 class="text-xl font-semibold text-gray-800 mb-3">Related Experience:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Architected and implemented <span style="font-weight: 700;">OpenTelemetry</span> tracing and custom metrics, integrated with <span style="font-weight: 700;">Dynatrace</span>.</li>
+                            <li>Cut incident detection time by <span style="font-weight: 700;">30%</span> through enhanced system observability.</li>
+                            <li>Built real-time dashboards, defined data-driven SLOs, and configured proactive alerting (PagerDuty/Slack).</li>
+                            <li>Improved Mean Time to Recovery (<span style="font-weight: 700;">MTTR</span>) by <span style="font-weight: 700;">25%</span>.</li>
+                            <li>Integrated <span style="font-weight: 700;">Jira</span> for improved project visibility and management.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Career Timeline Section -->
+            <section id="timeline" class="content-section hidden bg-white p-6 md:p-8 rounded-lg shadow-sm">
+                <h2 class="text-3xl font-semibold text-gray-900 mb-4">Career Timeline</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    My career has been a clear progression of increasing responsibility, from foundational software engineering to leading senior-level initiatives in cloud-native environments. Click each role to expand its key responsibilities and achievements.
+                </p>
+
+                <div class="relative border-l-2 border-blue-600 ml-4 pl-8 space-y-10">
+                    <!-- Timeline Item: Autodesk -->
+                    <div class="timeline-item">
+                        <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128188;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Senior Software Engineer</h3>
+                                <p class="text-lg font-medium text-gray-700">Autodesk <span class="text-gray-500 font-normal">| Bengaluru, India</span></p>
+                                <time class="text-sm text-gray-500">05/2023 – Present</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2 open">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><span style="font-weight: 700;">Cloud Observability & Tracing:</span> Architected and implemented OpenTelemetry tracing and custom metrics, integrated with Dynatrace for unified analysis.</li>
+                                <li><span style="font-weight: 700;">Kubernetes Automation:</span> Automated scalable OpenTelemetry collector deployments using Kubernetes DaemonSets and sidecars across 18+ microservices.</li>
+                                <li><span style="font-weight: 700;">System Resiliency:</span> Defined SLOs, built real-time dashboards, and configured proactive alerting (PagerDuty/Slack), improving Mean Time to Recovery (MTTR) by 25\%.</li>
+                                <li><span style="font-weight: 700;">Maintenance & Mentorship:</span> Managed microservice maintenance (Python/Ubuntu updates); mentored junior team members on system design.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: Talentica (Sr. Engineer) -->
+                    <div class="timeline-item">
+                        <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128188;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                             <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Senior Software Engineer</h3>
+                                <p class="text-lg font-medium text-gray-700">Talentica Software <span class="text-gray-500 font-normal">| Pune, India</span></p>
+                                <time class="text-sm text-gray-500">10/2022 – 05/2023</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2 open">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><span style="font-weight: 700;">DevOps Transformation:</span> Led migration and streamlining of CI/CD to Jenkins, achieving the 40% deployment time reduction.</li>
+                                <li><span style="font-weight: 700;">Infrastructure Modernization:</span> Updated Docker and Node.js versions; enhanced application security measures (e.g., GitHub token removal).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: Talentica (Sr. Engineer 2) -->
+                    <div class="timeline-item">
+                         <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128188;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Senior Software Engineer 2</h3>
+                                <p class="text-lg font-medium text-gray-700">Talentica Software <span class="text-gray-500 font-normal">| Pune, India</span></p>
+                                <time class="text-sm text-gray-500">10/2021 – 09/2022</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2 open">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><span style="font-weight: 700;">Compliance & Architecture:</span> Led re-architecture of a major microservice for 100% GDPR compliance.</li>
+                                <li><span style="font-weight: 700;">Performance Optimization:</span> Optimized critical API performance, achieving a 25% boost using Redis caching and multi-threading.</li>
+                                <li><span style="font-weight: 700;">Messaging Systems:</span> Implemented and managed robust messaging (<span style="font-weight: 700;">RabbitMQ, SQS</span>) for asynchronous data communication.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: Talentica (Software Engineer) -->
+                    <div class="timeline-item">
+                         <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128188;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Software Engineer</h3>
+                                <p class="text-lg font-medium text-gray-700">Talentica Software <span class="text-gray-500 font-normal">| Pune, India</span></p>
+                                <time class="text-sm text-gray-500">01/2020 – 09/2021</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600 rotated">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2 open">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Developed and maintained core backend microservices using the <span style="font-weight: 700;">Flask</span> framework.</li>
+                                <li>Integrated <span style="font-weight: 700;">Jira</span> for improved project visibility and management.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: KPIT -->
+                    <div class="timeline-item">
+                         <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128188;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Software Engineer</h3>
+                                <p class="text-lg font-medium text-gray-700">KPIT <span class="text-gray-500 font-normal">| Pune, India</span></p>
+                            <time class="text-sm text-gray-500">08/2018 – 01/2020</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Developed automation scripts in <span style="font-weight: 700;">DXL</span> and <span style="font-weight: 700;">Python</span>.</li>
+                                <li>Implemented <span style="font-weight: 700;">RTC plugins</span> using <span style="font-weight: 700;">Java</span>.</li>
+                                <li>Created utilities to streamline project management processes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item: Technical Content Writer Intern -->
+                    <div class="timeline-item">
+                        <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128221;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Technical Content Writer Intern</h3>
+                                <p class="text-lg font-medium text-gray-700">GeeksforGeeks <span class="text-gray-500 font-normal">| Remote</span></p>
+                                <time class="text-sm text-gray-500">09/2019 – 11/2019</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><span style="font-weight: 700;">Content Creation:</span> Served as a part-time technical content writer focusing on educational material for a broad technical audience.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: Software Engineering Associate Intern -->
+                    <div class="timeline-item">
+                        <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128187;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Software Engineering Associate Intern</h3>
+                                <p class="text-lg font-medium text-gray-700">Amdocs <span class="text-gray-500 font-normal">| Pune Area, India</span></p>
+                                <time class="text-sm text-gray-500">06/2017 – 07/2017</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Developed a <span style="font-weight: 700;">Java Spring MVC</span> web application integrated with Bootstrap for the frontend.</li>
+                                <li>Used <span style="font-weight: 700;">Maven</span> for dependency management and <span style="font-weight: 700;">Hibernate</span> for database operations.</li>
+                                <li>Integrated a chatbot using <span style="font-weight: 700;">DialogFlow</span>'s API.AI.</li>
+                                <li>Created an automation tool with <span style="font-weight: 700;">PyAutoGUI</span> and <span style="font-weight: 700;">Selenium WebDriver</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: Embedded Developer Intern -->
+                    <div class="timeline-item">
+                        <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128279;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Embedded Developer Intern</h3>
+                                <p class="text-lg font-medium text-gray-700">Kintu Designs Pvt. Ltd <span class="text-gray-500 font-normal">| Surat Area, India</span></p>
+                                <time class="text-sm text-gray-500">11/2016 – 12/2016</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Developed an application in <span style="font-weight: 700;">Python</span> for <span style="font-weight: 700;">Raspberry Pi 3</span>, interfaced with an LCD screen (Embedded Development Internship).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item: DRISHTI (Club & Robocon) -->
+                    <div class="timeline-item">
+                        <span class="absolute -left-5 -top-1.5 flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full text-white font-bold">&#128105;</span>
+                        <div class="timeline-item-header p-2 -ml-2 rounded-md hover:bg-gray-50">
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-900">Technical Club Member & Robotics</h3>
+                                <p class="text-lg font-medium text-gray-700">DRISHTI - A Revolutionary Concept (Technical Club) <span class="text-gray-500 font-normal">| College Activities</span></p>
+                                <time class="text-sm text-gray-500">01/2015 – 04/2018</time>
+                            </div>
+                            <span class="chevron text-2xl text-blue-600">&#9660;</span>
+                        </div>
+                        <div class="timeline-item-body mt-2 pl-2">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Active team member on community projects, collaborating with a team of around 80 members on various social initiatives.</li>
+                                <li>Participated in the <span style="font-weight: 700;">Asia-Pacific Robot Contest (Robocon)</span> for three consecutive years (2015-2017), focusing on robot control systems and embedded programming.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Impacts Section -->
+            <section id="impact" class="content-section hidden bg-white p-6 md:p-8 rounded-lg shadow-sm">
+                <h2 class="text-3xl font-semibold text-gray-900 mb-4">Key Impacts (Visualized)</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    My focus is on delivering measurable results. The charts below visualize the direct impact of my optimization and observability initiatives. These aren't just percentages; they represent tangible improvements in deployment speed, system stability, and performance.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="flex flex-col">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">DevOps & CI/CD Optimization</h3>
+                        <p class="text-center text-gray-600 mb-4">Migrating to Jenkins streamlined the CI/CD pipeline, dramatically cutting deployment times.</p>
+                        <div class="chart-container h-80 lg:h-96">
+                            <canvas id="ciCdChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4 text-center">System Performance & Observability</h3>
+                        <p class="text-center text-gray-600 mb-4">New observability tools and API optimizations led to faster detection and recovery.</p>
+                        <div class="chart-container h-80 lg:h-96">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer / Other Info -->
+        <footer class="mt-12 bg-white p-6 rounded-lg shadow-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3">Education</h3>
+                    <p class="text-lg font-medium text-gray-800">Bachelor of Technology (B.Tech)</p>
+                    <p class="text-gray-600">Sardar Vallabhbhai National Institute of Technology, Surat</p>
+                    <p class="text-gray-500 text-sm">07/2014 – 06/2018</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3">Certifications & Languages</h3>
+                    <p class="text-gray-700 mb-2">
+                        <strong class="font-medium">Certs:</strong> Pragmatic System Design, JavaScript Algorithms & Data Structures, Responsive Web Design, Django & Python.
+                    </p>
+                    <p class="text-gray-700">
+                        <strong class="font-medium">Languages:</strong> <span style="font-weight: 700;">Hindi (Native/Fluent)</span>, English (Fluent), Marathi (Basics), Gujarati (Basics).
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // EXPERTISE_DATA is simplified to only include content necessary for the front-end display, 
+        // as the AI Assistant features requiring API calls have been removed.
+
+        // Note: The original JS logic for the AI assistant is removed entirely.
+        
+        // --- Core Application Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const expertiseTabs = document.querySelectorAll('.expertise-tab');
+            const expertiseContents = document.querySelectorAll('.expertise-content');
+            const timelineItems = document.querySelectorAll('.timeline-item');
+
+            function updateNav(targetId) {
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                
+                // Manually trigger chart rendering if Impact tab is selected
+                if (targetId === 'impact') {
+                    renderCharts();
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.dataset.target;
+                    updateNav(targetId);
+                });
+            });
+
+            expertiseTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.dataset.target;
+
+                    expertiseTabs.forEach(t => t.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+
+                    expertiseContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            timelineItems.forEach(item => {
+                const header = item.querySelector('.timeline-item-header');
+                const body = item.querySelector('.timeline-item-body');
+                const chevron = item.querySelector('.chevron');
+
+                // Set initial state for chevron and body based on 'open' class
+                if (body.classList.contains('open')) {
+                    if (chevron) chevron.classList.add('rotated');
+                } else {
+                    body.classList.remove('open');
+                    if (chevron) chevron.classList.remove('rotated');
+                }
+
+                header.addEventListener('click', () => {
+                    const isOpen = body.classList.contains('open');
+                    
+                    if (!isOpen) {
+                        // Expand
+                        body.classList.add('open');
+                        if (chevron) chevron.classList.add('rotated');
+                    } else {
+                        // Collapse
+                        body.classList.remove('open');
+                        if (chevron) chevron.classList.remove('rotated');
+                    }
+                });
+            });
+
+            // Initial view (Home) is already handled by HTML classes, but ensure charts are ready
+            // We only call renderCharts() when the 'impact' tab is clicked to prevent Chart.js rendering errors when hidden
+        });
+
+        function renderCharts() {
+            // Chart rendering logic (omitted for brevity, but retained in the file provided by the user)
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.font.weight = "500";
+
+            // Destroy existing charts to prevent memory leaks and double rendering
+            if (window.ciCdChartInstance) {
+                window.ciCdChartInstance.destroy();
+            }
+            if (window.performanceChartInstance) {
+                window.performanceChartInstance.destroy();
+            }
+
+            const ciCdCtx = document.getElementById('ciCdChart')?.getContext('2d');
+            if (ciCdCtx) {
+                window.ciCdChartInstance = new Chart(ciCdCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Deployment Pipeline'],
+                        datasets: [
+                            {
+                                label: 'Relative Time (Before)',
+                                data: [100],
+                                backgroundColor: 'rgba(156, 163, 175, 0.6)',
+                                borderColor: 'rgba(156, 163, 175, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Relative Time (After)',
+                                data: [60],
+                                backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Deployment Time Reduction (40%)',
+                                font: { size: 16 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 110,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const performanceCtx = document.getElementById('performanceChart')?.getContext('2d');
+            if (performanceCtx) {
+                window.performanceChartInstance = new Chart(performanceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Incident Detection', 'API Response Time', 'MTTR'],
+                        datasets: [
+                            {
+                                label: 'Relative Time (Before)',
+                                data: [100, 100, 100],
+                                backgroundColor: 'rgba(156, 163, 175, 0.6)',
+                                borderColor: 'rgba(156, 163, 175, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Relative Time (After)',
+                                data: [70, 75, 75],
+                                backgroundColor: 'rgba(22, 163, 74, 0.6)',
+                                borderColor: 'rgba(22, 163, 74, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Performance & Recovery Gains (25-30%)',
+                                font: { size: 16 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += `${context.raw}%`;
+                                        if(context.dataset.label === 'Relative Time (After)') {
+                                            let reduction = 100 - context.raw;
+                                            label += ` (${reduction}% improvement)`;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 110,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
